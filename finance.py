@@ -7,7 +7,6 @@ from plotly import graph_objects as go
 import plotly.express as px
 
 st.set_page_config(page_title='Finance', page_icon = "", layout = 'wide', initial_sidebar_state = 'auto')
-# favicon being an object of the same kind as the one you should provide st.image() with (ie. a PIL array for example) or a string (url or local file path)
 
 # Função para pegar nome da ação e sigla
 def dados_acao():

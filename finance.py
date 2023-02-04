@@ -8,28 +8,24 @@ import plotly.express as px
 
 st.set_page_config(page_title='Finance', page_icon = "", layout = 'wide', initial_sidebar_state = 'auto')
 
-# Função para pegar nome da ação e sigla
+
 def dados_acao():
-    caminho = 'C:/Users/Alex/Desktop/Projetos/Python/streamlit/App Ações/acoes.csv'
+    caminho = 'https://raw.githubusercontent.com/leexjimmy/Finance-Streamlit-Application/main/acoes.csv'
     return pd.read_csv(caminho, delimiter=';')
 
-
-# Definindo variáveis
 df = dados_acao()
-
 acao = df['snome']
 
 DATA_INICIAL = '2018-01-01'
 DATA_FINAL = date.today().strftime('%Y-%m-%d')
-
  
 st.markdown("# Finance")
 
 # Sidebar
-
 st.sidebar.title('Finance')
 acao_e = st.sidebar.selectbox('Escolha uma Ação', acao)
 st.sidebar.image('image.png')
+
 df_acao = df[df['snome'] == acao_e]
 acao_escolhida = df_acao.iloc[0]['sigla_acao']
 acao_escolhida = acao_escolhida + '.SA'
@@ -45,16 +41,18 @@ df_valores = acao_online(acao_escolhida)
 df_valores = df_valores.drop(['Volume'], axis=1)
 df_valores['Balance'] = df_valores['Adj Close'].values - df_valores['Open'].values
 
+# Table
 st.subheader('Tabela - ' + acao_e)
 st.dataframe(df_valores.tail(10), use_container_width=True)
 
-# Grádico da Ação
+# Chart One
 st.subheader("Gráfico -" + acao_e)
 fig = go.Figure()
 fig.add_trace(go.Scatter(x=df_valores['Date'],y=df_valores['Adj Close'],
 name="Preço de Fechamento", line_color='blue'))
 st.plotly_chart(fig, use_container_width=True)
 
+# Chart Two
 st.subheader("Balanço nos Últimos 30 dias - " + acao_e)
 fig = px.bar(df_valores.tail(30), x='Date', y='Balance', color="Balance",color_continuous_scale=px.colors.sequential.Cividis_r)
 fig.update_traces(textfont_size=12, textangle=0, textposition="outside", cliponaxis=False)

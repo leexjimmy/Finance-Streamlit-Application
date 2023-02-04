@@ -57,3 +57,11 @@ fig = px.bar(df_valores.tail(30), x='Date', y='Balance', color="Balance",color_c
 fig.update_traces(textfont_size=12, textangle=0, textposition="outside", cliponaxis=False)
 st.plotly_chart(fig, use_container_width=True)
 
+hide_st_style = """
+            <style>
+            #MainMenu {visibility: hidden;}
+            footer {visibility: hidden;}
+            header {visibility: hidden;}
+            </style>
+            """
+st.markdown(hide_st_style, unsafe_allow_html=True)

@@ -11,7 +11,7 @@ st.set_page_config(page_title='Finance', page_icon = "", layout = 'wide', initia
 
 # Função para pegar nome da ação e sigla
 def dados_acao():
-    caminho = 'C:/Users/Alex/Desktop/Projetos/Python/streamlit/App Ações/acoes.csv'
+    caminho = 'https://raw.githubusercontent.com/leexjimmy/Finance-Streamlit-Application/main/acoes.csv'
     return pd.read_csv(caminho, delimiter=';')
 
 
